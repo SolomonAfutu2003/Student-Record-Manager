@@ -48,7 +48,7 @@ if (process.env.NODE_ENV === "production") {
 }
 
 connectToDB().then(() => {
-  app.listen(PORT, () => {
+  app.listen(PORT, "0.0.0.0", () => {
     console.log(`Server is live http://localhost:${PORT}`);
   });
 });
