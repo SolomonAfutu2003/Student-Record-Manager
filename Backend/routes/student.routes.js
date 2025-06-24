@@ -1,5 +1,4 @@
 // for the routes of the server
-
 import { Router } from "express";
 import {
   createStudent,

@@ -45,13 +45,14 @@ const StudentDetail = () => {
         setSaving(true)
 
         try {
-             await api.put(`/students/${id}`,student)
-             toast.success("Updated")
-             navigate("/")
+            await api.put(`/students/${id}`, student)
+            navigate("/")
+            toast.success("Updated")
+
         } catch (error) {
             console.log("Error from updating student data", error)
             toast.error("failed to update student")
-        } finally{
+        } finally {
             setSaving(false)
         }
     }

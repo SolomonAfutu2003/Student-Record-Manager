@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
+import path from "path";
 
 import studentsRoute from "./routes/student.routes.js";
 import { connectToDB } from "./config/db.js";
@@ -12,12 +13,17 @@ const app = express();
 
 const PORT = process.env.PORT;
 
+const __dirname = path.resolve();
+
 //middleware
-app.use(
-  cors({
-    origin: "http://localhost:5173",
-  })
-);
+if (process.env.NODE_ENV !== "production") {
+  app.use(
+    cors({
+      origin: "http://localhost:5173",
+    })
+  );
+}
+
 app.use(express.json()); //this middleware is for parsing JSON body: res.body
 app.use(rateLimiter);
 
@@ -29,15 +35,21 @@ app.use(rateLimiter);
 
 app.use("/api/students", studentsRoute);
 
-// app.get("/", (req, res) => {
-//   res.status(200).send("Hello");
-// });
+if (process.env.NODE_ENV === "production") {
+  const frontendPath = path.join(__dirname, "../Frontend/SRM/dist");
 
-// app.post("/api", (req, res) => {
-//   res.status(201).json({message:"Hello"});
-// });
+  // Serve static files
+  app.use(express.static(frontendPath));
+
+  // Fallback route (safe for Express 5)
+  app.get(/^\/(?!api).*/, (req, res) => {
+    res.sendFile(path.join(frontendPath, "index.html"));
+  });
+}
+
+
 connectToDB().then(() => {
   app.listen(PORT, () => {
-    console.log("Server is live");
+    console.log(`Server is live http://localhost:${PORT}`);
   });
 });
