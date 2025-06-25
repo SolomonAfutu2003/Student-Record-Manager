@@ -13,17 +13,6 @@ const Home = () => {
     const [students, setStudents] = useState([])
     const [loading, setLoading] = useState(true)
 
-    const deleteStudent = async (id) => {
-        try {
-            await api.delete(`/students/${id}`)
-            setStudents((prev) => prev.filter(students => students._id !== id))
-            toast.success(("Removed"))
-        } catch (error) {
-            console.error("Error in deleting", error)
-            toast.error("Couldn't delete")
-        }
-    }
-
     useEffect(() => {
         const fetchStudents = async () => {
             try {
@@ -46,6 +35,17 @@ const Home = () => {
 
         fetchStudents()
     }, [])
+    
+    const deleteStudent = async (id) => {
+        try {
+            await api.delete(`/students/${id}`)
+            setStudents((prev) => prev.filter(students => students._id !== id))
+            toast.success(("Removed"))
+        } catch (error) {
+            console.error("Error in deleting", error)
+            toast.error("Couldn't delete")
+        }
+    }
 
     return (
         <div>
