@@ -26,7 +26,7 @@ const AddStudents = () => {
             await api.post("/students", {
                 name,
                 email,
-                age,
+                age: Number(age),
                 grade
             })
             toast.success("Student added")
