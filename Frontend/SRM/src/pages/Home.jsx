@@ -35,8 +35,9 @@ const Home = () => {
 
         fetchStudents()
     }, [])
-    
-    const deleteStudent = async (id) => {
+
+    const deleteStudent = async (e, id) => {
+        e.preventDefault()
         try {
             await api.delete(`/students/${id}`)
             setStudents((prev) => prev.filter(students => students._id !== id))
