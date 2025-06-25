@@ -71,12 +71,12 @@ const Home = () => {
                                         <div>
                                             <span>Data : {formatDate(new Date(student.createdAt))}</span>
                                         </div>
-                                        <div className='flex gap-2'>
-                                            <button className='btn btn-circle btn-ghost'><Edit /></button>
-                                            <button className='btn btn-circle btn-ghost text-error' onClick={() => deleteStudent(student._id)}><Trash2Icon /></button>
-                                        </div>
                                     </div>
                                 </Link>
+                                <div className='flex gap-2'>
+                                    <button className='btn btn-circle btn-ghost'><Edit /></button>
+                                    <button className='btn btn-circle btn-ghost text-error' onClick={() => deleteStudent(student._id)}><Trash2Icon /></button>
+                                </div>
                             </div>
                         ))}
                     </div>
