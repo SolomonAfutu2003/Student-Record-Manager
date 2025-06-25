@@ -23,7 +23,7 @@ const AddStudents = () => {
         setLoading(true)
 
         try {
-            await api.post("http://localhost:3000/api/students", {
+            await api.post("/students", {
                 name,
                 email,
                 age,
